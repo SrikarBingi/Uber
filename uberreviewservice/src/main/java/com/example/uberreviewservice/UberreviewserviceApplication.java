@@ -9,6 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import com.example.uberreviewservice.Service.ReviewService;
 import com.example.uberreviewservice.models.Review;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @EnableJpaAuditing
 @SpringBootApplication
 public class UberreviewserviceApplication {
@@ -21,7 +24,7 @@ public class UberreviewserviceApplication {
 	public CommandLineRunner demo(ReviewService reviewService){
 		return args->{
 			Review review = reviewService.createReview();
-			System.out.println(review);
+			log.info("Saved Review: {}", review);
 		};
 	}
 }

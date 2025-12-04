@@ -12,6 +12,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,33 +23,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="reviews")
+@Table(name="booking_review")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Review {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Review extends BaseModel{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @Column(nullable=false)
-    private String content;
-    private double rating;
+    protected String content;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private Instant createdAt;
-
-    @LastModifiedDate
-    private Instant updatedAt;
-
-    @Override
-    public String toString() {
-        return content;
-    }
+    @Column(nullable = false)
+    protected double rating;
 
 }
